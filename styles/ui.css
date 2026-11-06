@@ -2,32 +2,44 @@
  * Accessible UI kit: component styles.
  * Every color pair meets WCAG AA in both color schemes. Override the --ui-* tokens to theme.
  * Components never set `display` on anything the scripts hide, so the hidden attribute always wins.
+ *
+ * The default theme is a plain spec sheet: ink on grey paper, square corners, ink rules, and one
+ * signal yellow that only ever sits behind dark ink text. IBM Plex is used when the page loads it;
+ * otherwise the font tokens fall back to system fonts, so nothing has to be downloaded.
  */
 
 :root {
-  --ui-font: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --ui-bg: #ffffff;
-  --ui-surface: #f2f2f6;
-  --ui-text: #1d1d22;
-  --ui-muted: #55555e;
-  --ui-line: #d6d6de;
-  --ui-accent: #4c3bcf;
-  --ui-accent-contrast: #ffffff;
-  --ui-radius: 12px;
-  --ui-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 12px 32px rgb(0 0 0 / 0.14);
+  --ui-font: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --ui-font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --ui-bg: #e9e9e6;
+  --ui-surface: #f4f4f1;
+  --ui-hover: #dcdcd8;
+  --ui-text: #141414;
+  --ui-muted: #4a4a4a;
+  --ui-line: #141414;
+  --ui-focus: #141414;
+  /* Signal yellow is a fill, never a text color or a thin line. Text on it is always dark ink. */
+  --ui-accent: #ffd400;
+  --ui-accent-contrast: #141414;
+  /* Yellow alone is too close to the light surface to mark a state, so an ink edge carries it. */
+  --ui-accent-edge: #141414;
+  --ui-radius: 0;
+  --ui-shadow: none;
   --ui-speed: 160ms;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --ui-bg: #111116;
-    --ui-surface: #1c1c24;
-    --ui-text: #f1f1f5;
-    --ui-muted: #a8a8b4;
-    --ui-line: #34343f;
-    --ui-accent: #ab9dff;
-    --ui-accent-contrast: #15121f;
-    --ui-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 32px rgb(0 0 0 / 0.5);
+    --ui-bg: #121212;
+    --ui-surface: #1b1b1b;
+    --ui-hover: #2c2c2c;
+    --ui-text: #ececea;
+    --ui-muted: #b0b0ab;
+    --ui-line: #ececea;
+    --ui-focus: #ececea;
+    --ui-accent: #ffd400;
+    --ui-accent-contrast: #141414;
+    --ui-accent-edge: #ffd400;
   }
 }
 
@@ -39,7 +51,7 @@
 
 :where([data-ui]) :focus-visible,
 :where([data-ui]):focus-visible {
-  outline: 3px solid var(--ui-accent);
+  outline: 3px solid var(--ui-focus);
   outline-offset: 2px;
 }
 
@@ -76,7 +88,7 @@
 /* Accordion */
 
 [data-ui='accordion'] {
-  border-bottom: 1px solid var(--ui-line);
+  border-bottom: 2px solid var(--ui-line);
 }
 
 [data-accordion-heading] {
@@ -85,14 +97,19 @@
   font-size: 1rem;
 }
 
+[data-ui='accordion'] > [data-accordion-heading]:first-child {
+  border-top-width: 2px;
+}
+
 [data-accordion-heading] > button {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
   width: 100%;
-  padding: 1rem 0.25rem;
+  padding: 0.875rem 0.5rem;
   border: 0;
+  border-radius: var(--ui-radius);
   background: none;
   color: inherit;
   font: inherit;
@@ -101,8 +118,12 @@
   cursor: pointer;
 }
 
+[data-accordion-heading] > button:hover {
+  background: var(--ui-hover);
+}
+
 [data-accordion-panel] {
-  padding: 0 0.25rem 1rem;
+  padding: 0 0.5rem 1rem;
 }
 
 [data-accordion-panel] > :first-child {
@@ -113,44 +134,42 @@
 
 [data-ui='tabs'] [role='tablist'] {
   display: flex;
-  gap: 0.25rem;
   overflow-x: auto;
-  /* An inset line sits under the tabs, so the selected underline can cover it without overflowing. */
-  box-shadow: inset 0 -1px var(--ui-line);
+  /* The rule sits outside the scroll box, so the selected underline rests on it without overflowing. */
+  border-bottom: 1px solid var(--ui-line);
 }
 
 [data-ui='tabs'] [role='tab'] {
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 1rem 0.5rem;
   border: 0;
-  border-bottom: 2px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-radius: var(--ui-radius);
   background: none;
   color: var(--ui-muted);
   font: inherit;
-  font-weight: 600;
+  font-weight: 500;
   white-space: nowrap;
   cursor: pointer;
 }
 
 [data-ui='tabs'] [role='tab']:hover {
+  background: var(--ui-hover);
   color: var(--ui-text);
 }
 
 [data-ui='tabs'] [role='tab'][aria-selected='true'] {
-  border-bottom-color: var(--ui-accent);
+  border-bottom-color: var(--ui-text);
   color: var(--ui-text);
+  font-weight: 700;
 }
 
+/* The tab list scrolls sideways, which would clip an outer ring, so the ring sits just inside the tab. */
 [data-ui='tabs'] [role='tab']:focus-visible {
   outline-offset: -3px;
-  border-radius: 6px;
 }
 
 [data-ui='tabs'] [role='tabpanel'] {
   padding: 1rem 0.25rem;
-}
-
-[data-ui='tabs'] [role='tabpanel']:focus-visible {
-  border-radius: 6px;
 }
 
 /* Dialog */
@@ -159,9 +178,9 @@ dialog[data-ui='dialog'] {
   width: min(32rem, calc(100vw - 2rem));
   max-height: calc(100dvh - 2rem);
   padding: 1.5rem;
-  border: 1px solid var(--ui-line);
+  border: 2px solid var(--ui-line);
   border-radius: var(--ui-radius);
-  background: var(--ui-bg);
+  background: var(--ui-surface);
   color: var(--ui-text);
   box-shadow: var(--ui-shadow);
   transition: translate var(--ui-speed) ease;
@@ -174,8 +193,13 @@ dialog[data-ui='dialog'] {
 }
 
 dialog[data-ui='dialog']::backdrop {
-  background: rgb(10 10 16 / 0.55);
-  backdrop-filter: blur(4px);
+  background: rgb(20 20 20 / 0.6);
+}
+
+@media (prefers-color-scheme: dark) {
+  dialog[data-ui='dialog']::backdrop {
+    background: rgb(0 0 0 / 0.72);
+  }
 }
 
 dialog[data-ui='dialog'] > :first-child {
@@ -201,9 +225,9 @@ html:has(dialog[data-ui='dialog']:modal) {
 
 [data-ui='combobox'] input {
   padding: 0.625rem 0.75rem;
-  border: 1px solid var(--ui-muted);
-  border-radius: 8px;
-  background: var(--ui-bg);
+  border: 2px solid var(--ui-line);
+  border-radius: var(--ui-radius);
+  background: var(--ui-surface);
   color: inherit;
   font: inherit;
 }
@@ -215,27 +239,30 @@ html:has(dialog[data-ui='dialog']:modal) {
   left: 0;
   z-index: 10;
   max-height: 16rem;
-  margin: 0.25rem 0 0;
+  /* Leaves room for the input's focus ring above the list. */
+  margin: 0.5rem 0 0;
   padding: 0.25rem;
   overflow-y: auto;
-  border: 1px solid var(--ui-line);
-  border-radius: 8px;
-  background: var(--ui-bg);
+  border: 2px solid var(--ui-line);
+  border-radius: var(--ui-radius);
+  background: var(--ui-surface);
   box-shadow: var(--ui-shadow);
   list-style: none;
 }
 
 [data-ui='combobox'] [role='option'] {
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
+  padding: 0.4375rem 0.625rem;
+  border: 2px solid transparent;
+  border-radius: var(--ui-radius);
   cursor: pointer;
 }
 
 [data-ui='combobox'] [role='option']:hover {
-  background: var(--ui-surface);
+  background: var(--ui-hover);
 }
 
 [data-ui='combobox'] [role='option'][aria-selected='true'] {
+  border-color: var(--ui-accent-edge);
   background: var(--ui-accent);
   color: var(--ui-accent-contrast);
 }
@@ -265,7 +292,7 @@ html:has(dialog[data-ui='dialog']:modal) {
   gap: 0.5rem;
   padding: 0.5rem 0.75rem;
   border: 0;
-  border-radius: 8px;
+  border-radius: var(--ui-radius);
   background: none;
   color: inherit;
   font: inherit;
@@ -275,7 +302,7 @@ html:has(dialog[data-ui='dialog']:modal) {
 
 [data-ui='disclosure-nav'] a:hover,
 [data-ui='disclosure-nav'] button:hover {
-  background: var(--ui-surface);
+  background: var(--ui-hover);
 }
 
 [data-ui='disclosure-nav'] [aria-current='page'] {
@@ -286,14 +313,14 @@ html:has(dialog[data-ui='dialog']:modal) {
 
 [data-ui='disclosure-nav'][data-ui-ready] li > ul {
   position: absolute;
-  top: calc(100% + 0.25rem);
+  top: calc(100% + 0.375rem);
   left: 0;
   z-index: 10;
   min-width: 12rem;
   padding: 0.375rem;
-  border: 1px solid var(--ui-line);
+  border: 2px solid var(--ui-line);
   border-radius: var(--ui-radius);
-  background: var(--ui-bg);
+  background: var(--ui-surface);
   box-shadow: var(--ui-shadow);
 }
 
@@ -308,8 +335,13 @@ html:has(dialog[data-ui='dialog']:modal) {
     border-bottom-color: Highlight;
   }
 
+  [data-ui='combobox'] [role='option'] {
+    border-color: Canvas;
+  }
+
   [data-ui='combobox'] [role='option'][aria-selected='true'] {
     forced-color-adjust: none;
+    border-color: Highlight;
     background: Highlight;
     color: HighlightText;
   }

@@ -45,6 +45,10 @@ Details that are easy to miss:
 `init()` enhances every element with a `data-ui` attribute once and returns the new
 instances. Each component class is also exported for direct use.
 
+Every color, font, and corner radius is a `--ui-*` custom property in `styles/ui.css`. The
+default theme uses IBM Plex Sans and IBM Plex Mono when the page loads them and falls back to
+system fonts otherwise, so nothing has to be downloaded.
+
 ### Accordion
 
 ```html
