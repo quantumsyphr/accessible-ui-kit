@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Accordion fixture</title>
+    <link rel="stylesheet" href="/styles/ui.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Accordion fixture</h1>
+
+      <div id="faq" data-ui="accordion">
+        <h2 data-accordion-heading>Shipping</h2>
+        <div data-accordion-panel><p>Orders ship within two business days.</p></div>
+        <h2 data-accordion-heading>Returns</h2>
+        <div data-accordion-panel><p>Return anything unused within 30 days.</p></div>
+        <h2 data-accordion-heading>Warranty</h2>
+        <div data-accordion-panel><p>Two-year warranty on every pack.</p></div>
+      </div>
+
+      <div id="single" data-ui="accordion" data-single>
+        <h2 data-accordion-heading>Pickup</h2>
+        <div data-accordion-panel><p>Pick up in store the same day.</p></div>
+        <h2 data-accordion-heading>Delivery</h2>
+        <div data-accordion-panel><p>Local delivery in two to four days.</p></div>
+      </div>
+    </main>
+    <script type="module">
+      import { init } from '/src/index.js';
+      init();
+    </script>
+  </body>
+</html>

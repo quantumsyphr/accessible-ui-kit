@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tabs fixture</title>
+    <link rel="stylesheet" href="/styles/ui.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Tabs fixture</h1>
+
+      <div data-ui="tabs" data-label="Product details">
+        <section data-tab-panel>
+          <h2>Overview</h2>
+          <p>Waxed canvas, built for daily carry.</p>
+        </section>
+        <section data-tab-panel>
+          <h2>Specs</h2>
+          <p>18 liters, 1.2 kilograms.</p>
+        </section>
+        <section data-tab-panel>
+          <h2>Shipping</h2>
+          <p>Free shipping on orders over 75 dollars.</p>
+        </section>
+      </div>
+    </main>
+    <script type="module">
+      import { init } from '/src/index.js';
+      init();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Combobox fixture</title>
+    <link rel="stylesheet" href="/styles/ui.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Combobox fixture</h1>
+
+      <div data-ui="combobox">
+        <label for="city">Find a store near you</label>
+        <input id="city" name="city" list="city-options" autocomplete="off" />
+        <datalist id="city-options">
+          <option value="Arlington"></option>
+          <option value="Dallas"></option>
+          <option value="Denton"></option>
+          <option value="Fort Worth"></option>
+          <option value="Frisco"></option>
+          <option value="Garland"></option>
+          <option value="Grand Prairie"></option>
+          <option value="Irving"></option>
+          <option value="McKinney"></option>
+          <option value="Plano"></option>
+        </datalist>
+      </div>
+
+      <button type="button">Next field</button>
+    </main>
+    <script type="module">
+      import { init } from '/src/index.js';
+      init();
+    </script>
+  </body>
+</html>

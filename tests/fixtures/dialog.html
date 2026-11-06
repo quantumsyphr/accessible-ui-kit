@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dialog fixture</title>
+    <link rel="stylesheet" href="/styles/ui.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Dialog fixture</h1>
+      <button type="button" commandfor="size-guide" command="show-modal">Size guide</button>
+      <button type="button" id="outside">Outside</button>
+    </main>
+
+    <dialog id="size-guide" data-ui="dialog" closedby="any" aria-labelledby="size-guide-title">
+      <h2 id="size-guide-title">Size guide</h2>
+      <p>Measure around the fullest part of your chest.</p>
+      <button type="button" commandfor="size-guide" command="close">Close</button>
+    </dialog>
+
+    <script type="module">
+      import { init } from '/src/index.js';
+      init();
+    </script>
+  </body>
+</html>

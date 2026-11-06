@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Disclosure navigation fixture</title>
+    <link rel="stylesheet" href="/styles/ui.css" />
+  </head>
+  <body>
+    <header>
+      <nav data-ui="disclosure-nav" aria-label="Main">
+        <ul>
+          <li><a href="#home" aria-current="page">Home</a></li>
+          <li>
+            <button type="button" aria-controls="nav-shop">Shop</button>
+            <ul id="nav-shop">
+              <li><a href="#packs">Packs</a></li>
+              <li><a href="#bags">Bags</a></li>
+              <li><a href="#accessories">Accessories</a></li>
+            </ul>
+          </li>
+          <li>
+            <button type="button" aria-controls="nav-support">Support</button>
+            <ul id="nav-support">
+              <li><a href="#shipping">Shipping</a></li>
+              <li><a href="#returns">Returns</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <h1>Disclosure navigation fixture</h1>
+      <button type="button">Elsewhere</button>
+    </main>
+    <script type="module">
+      import { init } from '/src/index.js';
+      init();
+    </script>
+  </body>
+</html>
