@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Carousel fixture</title>
+    <link rel="stylesheet" href="/styles/ui.css" />
+    <style>
+      main {
+        max-width: 40rem;
+      }
+      .card {
+        height: 8rem;
+        border: 1px solid;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Carousel fixture</h1>
+      <div data-ui="carousel">
+        <div data-carousel-viewport role="region" aria-label="Colors" tabindex="0">
+          <ul role="list">
+            <li><div class="card">One</div></li>
+            <li><div class="card">Two</div></li>
+            <li><div class="card">Three</div></li>
+            <li><div class="card">Four</div></li>
+            <li><div class="card">Five</div></li>
+            <li><div class="card">Six</div></li>
+          </ul>
+        </div>
+      </div>
+    </main>
+    <script type="module">
+      import { init } from '/src/index.js';
+      init();
+    </script>
+  </body>
+</html>

@@ -6,7 +6,7 @@
     <title>Accessible UI Kit</title>
     <meta
       name="description"
-      content="Five accessible interface components in plain JavaScript, tested with keyboard and axe-core checks in Chromium, Firefox, and WebKit."
+      content="Eight accessible interface components in plain JavaScript, tested with keyboard and axe-core checks in Chromium, Firefox, and WebKit."
     />
     <meta name="theme-color" content="#0a0a0b" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -33,6 +33,9 @@
                 <li><a href="#dialog">Dialog</a></li>
                 <li><a href="#combobox">Combobox</a></li>
                 <li><a href="#navigation">Navigation</a></li>
+                <li><a href="#form">Form</a></li>
+                <li><a href="#carousel">Carousel</a></li>
+                <li><a href="#drawer">Drawer</a></li>
               </ul>
             </li>
             <li>
@@ -52,10 +55,14 @@
       <div class="wrap hero-body">
         <h1>Accessible UI Kit</h1>
         <p class="lede">
-          Five interface components in plain JavaScript. Each one starts as ordinary HTML that works without
+          Eight interface components in plain JavaScript. Each one starts as ordinary HTML that works without
           scripts, then follows the WAI-ARIA Authoring Practices once the script runs. Every component has keyboard
           and axe-core tests, and the styles cover light and dark schemes, reduced motion, and Windows high contrast.
         </p>
+        <div class="mode" role="group" aria-label="JavaScript">
+          <a href="./" aria-current="true">JavaScript on</a>
+          <a href="?nojs">JavaScript off</a>
+        </div>
       </div>
     </header>
 
@@ -63,9 +70,9 @@
       <div class="band">
         <ul class="wrap facts">
           <li>
-            <span class="fact-value">5</span>
+            <span class="fact-value">8</span>
             <span class="fact-name">Components</span>
-            <span class="fact-detail">Accordion, tabs, dialog, combobox, navigation</span>
+            <span class="fact-detail">Accordion, tabs, dialog, combobox, navigation, form, carousel, drawer</span>
           </li>
           <li>
             <span class="fact-value">0</span>
@@ -78,9 +85,9 @@
             <span class="fact-detail">Chromium, Firefox, WebKit</span>
           </li>
           <li>
-            <span class="fact-value">2.7&nbsp;kB</span>
+            <span class="fact-value">4.3&nbsp;kB</span>
             <span class="fact-name">JavaScript</span>
-            <span class="fact-detail">All five components, gzipped</span>
+            <span class="fact-detail">All eight components, gzipped</span>
           </li>
         </ul>
       </div>
@@ -283,6 +290,153 @@
           </div>
         </div>
       </section>
+
+      <section id="form" class="component" aria-labelledby="form-title">
+        <div class="wrap">
+          <div class="component-about">
+            <h2 id="form-title">Form</h2>
+            <p>
+              A plain form with native validation attributes. On submit, every problem is listed in a summary that
+              takes focus and links to its field, and each message sits beside its field and is read with it. Without
+              JavaScript the browser's own validation takes over.
+            </p>
+            <p class="source">
+              Source <a href="https://github.com/quantumsyphr/accessible-ui-kit/blob/main/src/form.js">src/form.js</a>
+            </p>
+          </div>
+          <div class="component-demo">
+            <div class="example">
+              <form data-ui="form" action="#form" method="get">
+                <div data-field>
+                  <label for="notify-email">Email</label>
+                  <input
+                    id="notify-email"
+                    name="email"
+                    type="email"
+                    autocomplete="email"
+                    required
+                    data-error="Enter an email address, like name@example.com"
+                  />
+                </div>
+                <div data-field>
+                  <label for="notify-size">Size</label>
+                  <select id="notify-size" name="size" required data-error="Choose a size">
+                    <option value="">Select a size</option>
+                    <option value="s">Small</option>
+                    <option value="m">Medium</option>
+                    <option value="l">Large</option>
+                  </select>
+                </div>
+                <div data-field>
+                  <input
+                    id="notify-consent"
+                    name="consent"
+                    type="checkbox"
+                    required
+                    data-error="Tick the box so we can email you"
+                  />
+                  <label for="notify-consent">Email me once when my size is back</label>
+                </div>
+                <button type="submit" class="button button-primary">Notify me</button>
+              </form>
+              <p class="form-status" role="status"></p>
+            </div>
+            <table class="spec keys">
+              <caption class="visually-hidden">Form keyboard support</caption>
+              <thead>
+                <tr><th scope="col">Key</th><th scope="col">Action</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row"><kbd>Enter</kbd></th><td>Submit, then land on the summary if anything is wrong</td></tr>
+                <tr><th scope="row"><kbd>Enter</kbd> on a summary link</th><td>Move to that field</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="carousel" class="component" aria-labelledby="carousel-title">
+        <div class="wrap">
+          <div class="component-about">
+            <h2 id="carousel-title">Carousel</h2>
+            <p>
+              A scroll-snap strip that swipes, scrolls and takes arrow keys with no script. The script adds Previous
+              and Next buttons that keep focus when they reach the end. Nothing moves on its own.
+            </p>
+            <p class="source">
+              Source
+              <a href="https://github.com/quantumsyphr/accessible-ui-kit/blob/main/src/carousel.js">src/carousel.js</a>
+            </p>
+          </div>
+          <div class="component-demo">
+            <div class="example">
+              <div data-ui="carousel">
+                <div data-carousel-viewport role="region" aria-label="Daypack colors" tabindex="0">
+                  <ul role="list">
+                    <li class="colorway"><span style="background: #b08d57"></span><b>Field Tan</b> $148</li>
+                    <li class="colorway"><span style="background: #4a5560"></span><b>Slate</b> $148</li>
+                    <li class="colorway"><span style="background: #5b6b4a"></span><b>Moss</b> $148</li>
+                    <li class="colorway"><span style="background: #1c1c1e"></span><b>Black</b> $148</li>
+                    <li class="colorway"><span style="background: #a4492c"></span><b>Rust</b> $148</li>
+                    <li class="colorway"><span style="background: #2f5d73"></span><b>Harbor</b> $148</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <table class="spec keys">
+              <caption class="visually-hidden">Carousel keyboard support</caption>
+              <thead>
+                <tr><th scope="col">Key</th><th scope="col">Action</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row"><kbd>Left</kbd> and <kbd>Right</kbd></th><td>Scroll the strip</td></tr>
+                <tr><th scope="row"><kbd>Enter</kbd> or <kbd>Space</kbd></th><td>On a button, move one item</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="drawer" class="component" aria-labelledby="drawer-title">
+        <div class="wrap">
+          <div class="component-about">
+            <h2 id="drawer-title">Drawer</h2>
+            <p>
+              A list of links that becomes a slide-in menu behind a button. It is built on the native dialog, so the
+              page behind goes inert, Escape closes it, and focus returns to the button. Without JavaScript the links
+              simply sit on the page.
+            </p>
+            <p class="source">
+              Source
+              <a href="https://github.com/quantumsyphr/accessible-ui-kit/blob/main/src/drawer.js">src/drawer.js</a>
+            </p>
+          </div>
+          <div class="component-demo">
+            <div class="example">
+              <button type="button" data-drawer-open="shop-menu" hidden>Menu</button>
+              <nav id="shop-menu" data-ui="drawer" aria-label="Shop">
+                <ul>
+                  <li><a href="#drawer">Packs</a></li>
+                  <li><a href="#drawer">Bags</a></li>
+                  <li><a href="#drawer">Accessories</a></li>
+                  <li><a href="#drawer">Repairs</a></li>
+                  <li><a href="#drawer">Stores</a></li>
+                </ul>
+              </nav>
+            </div>
+            <table class="spec keys">
+              <caption class="visually-hidden">Drawer keyboard support</caption>
+              <thead>
+                <tr><th scope="col">Key</th><th scope="col">Action</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row"><kbd>Escape</kbd></th><td>Close and return to the button</td></tr>
+                <tr><th scope="row"><kbd>Tab</kbd></th><td>Stays inside the menu</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
     </main>
 
     <dialog id="size-guide" data-ui="dialog" closedby="any" aria-labelledby="size-guide-title">
@@ -312,8 +466,24 @@
     </footer>
 
     <script type="module">
-      import { init } from '/src/index.js';
-      init();
+      // The demo store has no server, so a form that passes validation is answered here.
+      document.addEventListener('submit', (event) => {
+        if (event.defaultPrevented) return;
+        event.preventDefault();
+        event.target.reset();
+        document.querySelector('.form-status').textContent = 'Thanks. We will email you once when it is back.';
+      });
+
+      // ?nojs leaves the components as the plain HTML they are written as.
+      const off = new URLSearchParams(location.search).has('nojs');
+      for (const link of document.querySelectorAll('.mode a')) {
+        if ((link.getAttribute('href') === '?nojs') === off) link.setAttribute('aria-current', 'true');
+        else link.removeAttribute('aria-current');
+      }
+      if (!off) {
+        const { init } = await import('/src/index.js');
+        init();
+      }
     </script>
   </body>
 </html>

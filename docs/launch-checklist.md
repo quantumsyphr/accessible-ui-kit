@@ -6,7 +6,8 @@
 - [x] axe-core WCAG 2.2 AA checks for every component state tested
 - [x] Behavior without JavaScript for every component
 - [x] Dialog `closedby` fallback exercised in Firefox with the feature switched off
-- [x] Demo page clean in light and dark mode, no sideways scroll at 375 px
+- [x] Demo page clean in light and dark mode, no sideways scroll at 375 px, with its scripts on and off
+- [x] Size budget: 4.6 kB of gzipped JavaScript, 4.0 kB of gzipped CSS
 - [x] ESLint clean
 
 ## Manual, still to do

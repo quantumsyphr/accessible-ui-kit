@@ -1,13 +1,16 @@
 # Accessible UI Kit
 
-Five accessible interface components in plain JavaScript: accordion, tabs, modal dialog,
-combobox, and disclosure navigation. Each one starts as ordinary HTML that works without
+[![CI](https://github.com/quantumsyphr/accessible-ui-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/quantumsyphr/accessible-ui-kit/actions/workflows/ci.yml)
+
+Eight accessible interface components in plain JavaScript: accordion, tabs, modal dialog,
+combobox, disclosure navigation, form validation, carousel, and menu drawer. Each one starts as ordinary HTML that works without
 scripts, then follows the [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)
 once the script runs. No framework, no runtime dependencies, no build step needed to use them.
 
 **Live demo: [accessible-ui-kit.netlify.app](https://accessible-ui-kit.netlify.app)**
 
-All five components together come to about 2.7 kB of gzipped JavaScript.
+All eight components together come to about 4.3 kB of gzipped JavaScript. The demo has a
+JavaScript on and off switch, so you can use every component as the plain HTML it starts as.
 
 ## Components
 
@@ -18,6 +21,9 @@ All five components together come to about 2.7 kB of gzipped JavaScript.
 | Dialog | A native `<dialog>` and invoker buttons | Native modal dialog | [`src/dialog.js`](src/dialog.js) |
 | Combobox | An `<input>` with a `<datalist>` | [Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/) with list autocomplete | [`src/combobox.js`](src/combobox.js) |
 | Navigation | A `<nav>` of buttons and link lists | [Disclosure navigation](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/) | [`src/disclosure-nav.js`](src/disclosure-nav.js) |
+| Form | A `<form>` with `required`, `type`, and `pattern` | Error summary and inline messages on native validation | [`src/form.js`](src/form.js) |
+| Carousel | A scroll-snap strip in a labelled region | Scrolling region with Previous and Next buttons | [`src/carousel.js`](src/carousel.js) |
+| Drawer | A `<nav>` of links | Native modal dialog | [`src/drawer.js`](src/drawer.js) |
 
 Details that are easy to miss:
 
@@ -29,6 +35,12 @@ Details that are easy to miss:
   `aria-activedescendant`, with a live region announcing the number of results.
 - Navigation submenus close when focus or a click lands anywhere else, and Escape returns
   focus to the button that opened them.
+- A failed form submit moves focus to a summary that links to each field. Each message is
+  tied to its field with `aria-describedby` and clears as soon as the field is fixed.
+- The carousel never moves on its own. At either end a button is marked `aria-disabled`
+  instead of `disabled`, so it keeps keyboard focus.
+- The drawer is a native modal dialog, so the page behind goes inert, Escape and a click
+  outside close it, and focus returns to the menu button.
 - Styles cover light and dark color schemes, reduced motion, and Windows high contrast.
 
 ## Usage
@@ -116,6 +128,57 @@ Picking an option fires `change` and a `ui:select` event whose `detail.value` is
 </nav>
 ```
 
+### Form
+
+```html
+<form data-ui="form" action="/notify" method="post">
+  <div data-field>
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" required
+      data-error="Enter an email address, like name@example.com" />
+  </div>
+  <div data-field>
+    <label for="size">Size</label>
+    <select id="size" name="size" required data-error="Choose a size">
+      <option value="">Select a size</option>
+      <option value="s">Small</option>
+    </select>
+  </div>
+  <button type="submit">Notify me</button>
+</form>
+```
+
+Wrap each control and its label in `data-field`. `data-error` sets the wording; without it
+the browser's own message is used.
+
+### Carousel
+
+```html
+<div data-ui="carousel">
+  <div data-carousel-viewport role="region" aria-label="Colors" tabindex="0">
+    <ul role="list">
+      <li>...</li>
+      <li>...</li>
+    </ul>
+  </div>
+</div>
+```
+
+### Drawer
+
+```html
+<button type="button" data-drawer-open="shop-menu" hidden>Menu</button>
+
+<nav id="shop-menu" data-ui="drawer" aria-label="Shop">
+  <ul>
+    <li><a href="/packs">Packs</a></li>
+    <li><a href="/bags">Bags</a></li>
+  </ul>
+</nav>
+```
+
+Add `data-media="(max-width: 48rem)"` to be a drawer only on small screens.
+
 ## Testing
 
 ```bash
@@ -123,6 +186,7 @@ npm install
 npx playwright install
 npm test
 npm run lint
+npm run size
 ```
 
 - Playwright runs every spec in Chromium, Firefox, and WebKit: keyboard interaction, focus
@@ -131,7 +195,10 @@ npm run lint
   states, and the demo page in light and dark mode.
 - A fourth run uses Firefox with dialog light dismiss switched off. It is the only way to
   exercise the fallback for browsers without `closedby`, and turning the fallback off makes it fail.
-- GitHub Actions runs lint and the full suite on every push.
+- The demo page is tested twice, with its scripts on and with them off.
+- `npm run size` fails when the kit passes its budget: 4.6 kB of gzipped JavaScript and
+  4.0 kB of gzipped CSS.
+- GitHub Actions runs lint, the size budget, and the full suite on every push.
 
 Two real Safari bugs were caught this way, both covered in the decision records.
 
@@ -153,5 +220,5 @@ buttons do nothing, so sites that must support them should add a click handler t
 
 ## About
 
-Built by [Peter Tillman-Young](https://peter-ty-portfolio.netlify.app) with Claude Code as a
+Built by [Peter Tillman-Young](https://ptyportfolio.com) with Claude Code as a
 pair programmer. MIT license. The store content in the demo is fictional.

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Form fixture</title>
+    <link rel="stylesheet" href="/styles/ui.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Form fixture</h1>
+      <form data-ui="form" action="/tests/fixtures/form.html" method="get">
+        <div data-field>
+          <label for="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+            aria-describedby="email-hint"
+            data-error="Enter an email address, like name@example.com"
+          />
+          <p id="email-hint">We only use it for this order.</p>
+        </div>
+        <div data-field>
+          <label for="size">Size</label>
+          <select id="size" name="size" required data-error="Choose a size">
+            <option value="">Select a size</option>
+            <option value="s">Small</option>
+            <option value="m">Medium</option>
+          </select>
+        </div>
+        <div data-field>
+          <label for="nickname">Name on the tag</label>
+          <input id="nickname" name="nickname" required />
+        </div>
+        <fieldset data-field>
+          <legend>Delivery</legend>
+          <label><input type="radio" name="delivery" value="ship" required data-error="Choose a delivery option" /> Ship it</label>
+          <label><input type="radio" name="delivery" value="pickup" /> Pick up in store</label>
+        </fieldset>
+        <div data-field>
+          <input id="terms" name="terms" type="checkbox" required data-error="Agree to the terms to continue" />
+          <label for="terms">I agree to the terms</label>
+        </div>
+        <button type="submit">Notify me</button>
+      </form>
+    </main>
+    <script type="module">
+      import { init } from '/src/index.js';
+      init();
+    </script>
+  </body>
+</html>

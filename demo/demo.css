@@ -245,6 +245,7 @@ a:hover {
 
 .component-demo {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(20px, 2.5vw, 32px);
   min-width: 0;
 }
@@ -435,4 +436,68 @@ dialog p {
 
 .site-footer p {
   margin: 0;
+}
+
+/* JavaScript on and off */
+
+.mode {
+  display: inline-flex;
+  margin-top: 32px;
+  border: 1px solid var(--ui-line-strong);
+}
+
+.mode a {
+  padding: 0.75rem 1.125rem;
+  color: var(--ui-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color var(--ui-speed) var(--ui-ease);
+}
+
+.mode a:hover {
+  color: var(--ui-text);
+}
+
+.mode a[aria-current] {
+  background: var(--ui-text);
+  color: var(--ui-bg);
+}
+
+/* Form, carousel and drawer examples */
+
+.example [data-ui='form'] .button {
+  justify-self: start;
+}
+
+.example .form-status {
+  margin: 0;
+  font-weight: 600;
+}
+
+.example .form-status:not(:empty) {
+  margin-top: 1.25rem;
+}
+
+.colorway {
+  display: grid;
+  gap: 0.25rem;
+  color: var(--page-body);
+  font-size: 0.875rem;
+}
+
+.colorway span {
+  aspect-ratio: 4 / 3;
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--ui-line);
+}
+
+.colorway b {
+  color: var(--ui-text);
+  font-size: 0.78125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }

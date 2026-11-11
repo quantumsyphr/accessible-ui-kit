@@ -1,16 +1,22 @@
 import { Accordion } from './accordion.js';
+import { Carousel } from './carousel.js';
 import { Combobox } from './combobox.js';
 import { Dialog } from './dialog.js';
 import { DisclosureNav } from './disclosure-nav.js';
+import { Drawer } from './drawer.js';
+import { Form } from './form.js';
 import { Tabs } from './tabs.js';
 
-export { Accordion, Combobox, Dialog, DisclosureNav, Tabs };
+export { Accordion, Carousel, Combobox, Dialog, DisclosureNav, Drawer, Form, Tabs };
 
 const components = {
   accordion: Accordion,
+  carousel: Carousel,
   combobox: Combobox,
   dialog: Dialog,
   'disclosure-nav': DisclosureNav,
+  drawer: Drawer,
+  form: Form,
   tabs: Tabs,
 };
 

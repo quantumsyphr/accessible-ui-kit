@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Drawer fixture</title>
+    <link rel="stylesheet" href="/styles/ui.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Drawer fixture</h1>
+      <button type="button" data-drawer-open="shop-menu" hidden>Menu</button>
+      <nav id="shop-menu" data-ui="drawer" aria-label="Shop">
+        <ul>
+          <li><a href="#packs">Packs</a></li>
+          <li><a href="#bags">Bags</a></li>
+          <li><a href="#repairs">Repairs</a></li>
+        </ul>
+      </nav>
+
+      <button type="button" data-drawer-open="help-menu" hidden>Help</button>
+      <nav id="help-menu" data-ui="drawer" aria-label="Help" data-media="(max-width: 40rem)">
+        <ul>
+          <li><a href="#shipping">Shipping</a></li>
+          <li><a href="#returns">Returns</a></li>
+        </ul>
+      </nav>
+
+      <button type="button" id="outside" style="padding: 0.5rem 1rem">Outside</button>
+      <div style="height: 200vh"></div>
+    </main>
+    <script type="module">
+      import { init } from '/src/index.js';
+      init();
+    </script>
+  </body>
+</html>

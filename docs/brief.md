@@ -9,7 +9,7 @@ again and again: focus that vanishes when a dialog closes, site menus built with
 
 ## Goal
 
-Five common components built properly, each small enough to read in a few minutes, with
+Eight common components built properly, each small enough to read in a few minutes, with
 tests that prove the behavior in every major browser engine.
 
 ## Audience
@@ -20,7 +20,8 @@ tests that prove the behavior in every major browser engine.
 
 ## Scope
 
-In: accordion, tabs, modal dialog, combobox, disclosure navigation. Light and dark color
+In: accordion, tabs, modal dialog, combobox, disclosure navigation, form validation,
+carousel, and menu drawer. Light and dark color
 schemes, reduced motion, forced colors (Windows high contrast), and behavior without
 JavaScript.
 
