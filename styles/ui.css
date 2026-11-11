@@ -3,44 +3,61 @@
  * Every color pair meets WCAG AA in both color schemes. Override the --ui-* tokens to theme.
  * Components never set `display` on anything the scripts hide, so the hidden attribute always wins.
  *
- * The default theme is a plain spec sheet: ink on grey paper, square corners, ink rules, and one
- * signal yellow that only ever sits behind dark ink text. IBM Plex is used when the page loads it;
- * otherwise the font tokens fall back to system fonts, so nothing has to be downloaded.
+ * The default theme is editorial and square: heavy uppercase labels, hairline rules, one red accent,
+ * and a 3px bar that marks the current item instead of a filled background. Montserrat is used when
+ * the page loads it; otherwise the font token falls back to system fonts.
+ *
+ * Put data-ui-ground="dark" on any container to give the components inside it the dark values,
+ * whatever the color scheme. The demo page does this for its header.
  */
 
 :root {
-  --ui-font: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --ui-font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
-  --ui-bg: #e9e9e6;
-  --ui-surface: #f4f4f1;
-  --ui-hover: #dcdcd8;
+  --ui-font: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --ui-bg: #ffffff;
+  --ui-surface: #ffffff;
+  --ui-band: #f4f4f4;
   --ui-text: #141414;
-  --ui-muted: #4a4a4a;
-  --ui-line: #141414;
-  --ui-focus: #141414;
-  /* Signal yellow is a fill, never a text color or a thin line. Text on it is always dark ink. */
-  --ui-accent: #ffd400;
-  --ui-accent-contrast: #141414;
-  /* Yellow alone is too close to the light surface to mark a state, so an ink edge carries it. */
-  --ui-accent-edge: #141414;
+  --ui-muted: #5c5c5c;
+  --ui-line: rgb(0 0 0 / 0.12);
+  /* Field and menu edges need 3:1 against the surface, so they get a stronger line. */
+  --ui-line-strong: #868686;
+  --ui-accent: #d42a20;
+  --ui-accent-contrast: #ffffff;
+  --ui-focus: var(--ui-accent);
   --ui-radius: 0;
-  --ui-shadow: none;
-  --ui-speed: 160ms;
+  --ui-shadow: 0 12px 34px rgb(0 0 0 / 0.12);
+  --ui-speed: 250ms;
+  --ui-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --ui-bg: #121212;
-    --ui-surface: #1b1b1b;
-    --ui-hover: #2c2c2c;
-    --ui-text: #ececea;
-    --ui-muted: #b0b0ab;
-    --ui-line: #ececea;
-    --ui-focus: #ececea;
-    --ui-accent: #ffd400;
-    --ui-accent-contrast: #141414;
-    --ui-accent-edge: #ffd400;
+    --ui-bg: #0a0a0b;
+    --ui-surface: #17171b;
+    --ui-band: #25252b;
+    --ui-text: #f5f5f6;
+    --ui-muted: #a9a9b0;
+    --ui-line: rgb(255 255 255 / 0.12);
+    --ui-line-strong: #6e6e76;
+    --ui-accent: #ff4a42;
+    --ui-accent-contrast: #0a0a0b;
+    --ui-shadow: 0 12px 34px rgb(0 0 0 / 0.5);
   }
+}
+
+[data-ui-ground='dark'] {
+  --ui-bg: #0a0a0b;
+  --ui-surface: #17171b;
+  --ui-band: #25252b;
+  --ui-text: #f5f5f6;
+  --ui-muted: #a9a9b0;
+  --ui-line: rgb(255 255 255 / 0.12);
+  --ui-line-strong: #6e6e76;
+  --ui-accent: #ff4a42;
+  --ui-accent-contrast: #0a0a0b;
+  --ui-shadow: 0 12px 34px rgb(0 0 0 / 0.5);
+  background: var(--ui-bg);
+  color: var(--ui-text);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -49,9 +66,13 @@
   }
 }
 
+:where([data-ui]) {
+  font-family: var(--ui-font);
+}
+
 :where([data-ui]) :focus-visible,
 :where([data-ui]):focus-visible {
-  outline: 3px solid var(--ui-focus);
+  outline: 2px solid var(--ui-focus);
   outline-offset: 2px;
 }
 
@@ -72,12 +93,12 @@
 [data-ui='disclosure-nav'] button[aria-controls]::after {
   content: '';
   flex: none;
-  width: 0.5em;
-  height: 0.5em;
+  width: 0.45em;
+  height: 0.45em;
   border-right: 2px solid currentColor;
   border-bottom: 2px solid currentColor;
   transform: translateY(-25%) rotate(45deg);
-  transition: transform var(--ui-speed) ease;
+  transition: transform var(--ui-speed) var(--ui-ease);
 }
 
 [data-accordion-heading] > button[aria-expanded='true']::after,
@@ -88,17 +109,15 @@
 /* Accordion */
 
 [data-ui='accordion'] {
-  border-bottom: 2px solid var(--ui-line);
+  border-bottom: 1px solid var(--ui-line);
 }
 
 [data-accordion-heading] {
   margin: 0;
   border-top: 1px solid var(--ui-line);
   font-size: 1rem;
-}
-
-[data-ui='accordion'] > [data-accordion-heading]:first-child {
-  border-top-width: 2px;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 [data-accordion-heading] > button {
@@ -107,69 +126,85 @@
   justify-content: space-between;
   gap: 1rem;
   width: 100%;
-  padding: 0.875rem 0.5rem;
+  padding: 1.125rem 1rem 1.125rem 0.8125rem;
   border: 0;
+  border-inline-start: 3px solid transparent;
   border-radius: var(--ui-radius);
   background: none;
   color: inherit;
   font: inherit;
-  font-weight: 600;
+  font-weight: 700;
   text-align: start;
   cursor: pointer;
+  transition:
+    color var(--ui-speed) var(--ui-ease),
+    border-color var(--ui-speed) var(--ui-ease);
 }
 
 [data-accordion-heading] > button:hover {
-  background: var(--ui-hover);
+  color: var(--ui-accent);
+}
+
+[data-accordion-heading] > button[aria-expanded='true'] {
+  border-inline-start-color: var(--ui-accent);
 }
 
 [data-accordion-panel] {
-  padding: 0 0.5rem 1rem;
+  padding: 0 1rem 1.25rem;
 }
 
 [data-accordion-panel] > :first-child {
   margin-top: 0;
 }
 
+[data-accordion-panel] > :last-child {
+  margin-bottom: 0;
+}
+
 /* Tabs */
 
 [data-ui='tabs'] [role='tablist'] {
   display: flex;
+  gap: 0.25rem;
   overflow-x: auto;
-  /* The rule sits outside the scroll box, so the selected underline rests on it without overflowing. */
   border-bottom: 1px solid var(--ui-line);
 }
 
 [data-ui='tabs'] [role='tab'] {
-  padding: 0.75rem 1rem 0.5rem;
+  padding: 0.875rem 1rem 0.75rem;
   border: 0;
   border-bottom: 3px solid transparent;
   border-radius: var(--ui-radius);
   background: none;
   color: var(--ui-muted);
   font: inherit;
-  font-weight: 500;
+  font-size: 0.78125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   white-space: nowrap;
   cursor: pointer;
+  transition:
+    color var(--ui-speed) var(--ui-ease),
+    border-color var(--ui-speed) var(--ui-ease);
 }
 
 [data-ui='tabs'] [role='tab']:hover {
-  background: var(--ui-hover);
   color: var(--ui-text);
 }
 
 [data-ui='tabs'] [role='tab'][aria-selected='true'] {
-  border-bottom-color: var(--ui-text);
+  border-bottom-color: var(--ui-accent);
   color: var(--ui-text);
-  font-weight: 700;
 }
 
 /* The tab list scrolls sideways, which would clip an outer ring, so the ring sits just inside the tab. */
 [data-ui='tabs'] [role='tab']:focus-visible {
-  outline-offset: -3px;
+  outline-offset: -2px;
 }
 
 [data-ui='tabs'] [role='tabpanel'] {
-  padding: 1rem 0.25rem;
+  padding: 1.5rem 0 0.25rem;
 }
 
 /* Dialog */
@@ -177,28 +212,30 @@
 dialog[data-ui='dialog'] {
   width: min(32rem, calc(100vw - 2rem));
   max-height: calc(100dvh - 2rem);
-  padding: 1.5rem;
-  border: 2px solid var(--ui-line);
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+  border: 1px solid var(--ui-line);
+  border-top: 3px solid var(--ui-accent);
   border-radius: var(--ui-radius);
   background: var(--ui-surface);
   color: var(--ui-text);
+  font-family: var(--ui-font);
   box-shadow: var(--ui-shadow);
-  transition: translate var(--ui-speed) ease;
+  transition: translate var(--ui-speed) var(--ui-ease);
 }
 
 @starting-style {
   dialog[data-ui='dialog'][open] {
-    translate: 0 0.5rem;
+    translate: 0 0.75rem;
   }
 }
 
 dialog[data-ui='dialog']::backdrop {
-  background: rgb(20 20 20 / 0.6);
+  background: rgb(10 10 11 / 0.64);
 }
 
 @media (prefers-color-scheme: dark) {
   dialog[data-ui='dialog']::backdrop {
-    background: rgb(0 0 0 / 0.72);
+    background: rgb(0 0 0 / 0.76);
   }
 }
 
@@ -215,21 +252,32 @@ html:has(dialog[data-ui='dialog']:modal) {
 [data-ui='combobox'] {
   position: relative;
   display: grid;
-  gap: 0.375rem;
-  max-width: 24rem;
+  gap: 0.5rem;
+  max-width: 26.25rem;
 }
 
 [data-ui='combobox'] label {
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 [data-ui='combobox'] input {
-  padding: 0.625rem 0.75rem;
-  border: 2px solid var(--ui-line);
+  height: 3rem;
+  padding: 0 0.875rem;
+  border: 1px solid var(--ui-line-strong);
   border-radius: var(--ui-radius);
   background: var(--ui-surface);
   color: inherit;
   font: inherit;
+  font-size: 0.9375rem;
+  transition: border-color var(--ui-speed) var(--ui-ease);
+}
+
+[data-ui='combobox'] input:hover,
+[data-ui='combobox'] input:focus {
+  border-color: var(--ui-text);
 }
 
 [data-ui='combobox'] [role='listbox'] {
@@ -239,11 +287,11 @@ html:has(dialog[data-ui='dialog']:modal) {
   left: 0;
   z-index: 10;
   max-height: 16rem;
-  /* Leaves room for the input's focus ring above the list. */
+  /* Leaves room for the focus ring of the input above the list. */
   margin: 0.5rem 0 0;
-  padding: 0.25rem;
+  padding: 0.25rem 0;
   overflow-y: auto;
-  border: 2px solid var(--ui-line);
+  border: 1px solid var(--ui-line-strong);
   border-radius: var(--ui-radius);
   background: var(--ui-surface);
   box-shadow: var(--ui-shadow);
@@ -251,20 +299,20 @@ html:has(dialog[data-ui='dialog']:modal) {
 }
 
 [data-ui='combobox'] [role='option'] {
-  padding: 0.4375rem 0.625rem;
-  border: 2px solid transparent;
-  border-radius: var(--ui-radius);
+  padding: 0.625rem 0.875rem 0.625rem 0.6875rem;
+  border-inline-start: 3px solid transparent;
+  font-size: 0.9375rem;
   cursor: pointer;
 }
 
 [data-ui='combobox'] [role='option']:hover {
-  background: var(--ui-hover);
+  background: var(--ui-band);
 }
 
 [data-ui='combobox'] [role='option'][aria-selected='true'] {
-  border-color: var(--ui-accent-edge);
-  background: var(--ui-accent);
-  color: var(--ui-accent-contrast);
+  border-inline-start-color: var(--ui-accent);
+  background: var(--ui-band);
+  font-weight: 700;
 }
 
 /* Disclosure navigation */
@@ -290,35 +338,60 @@ html:has(dialog[data-ui='dialog']:modal) {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
+  padding: 0.75rem 0.875rem;
   border: 0;
   border-radius: var(--ui-radius);
   background: none;
   color: inherit;
   font: inherit;
+  font-size: 0.78125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   text-decoration: none;
+  text-transform: uppercase;
   cursor: pointer;
+  transition: color var(--ui-speed) var(--ui-ease);
 }
 
 [data-ui='disclosure-nav'] a:hover,
-[data-ui='disclosure-nav'] button:hover {
-  background: var(--ui-hover);
+[data-ui='disclosure-nav'] button:hover,
+[data-ui='disclosure-nav'] button[aria-expanded='true'] {
+  color: var(--ui-accent);
 }
 
 [data-ui='disclosure-nav'] [aria-current='page'] {
   text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.3em;
+  text-decoration-color: var(--ui-accent);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 0.5em;
+}
+
+[data-ui='disclosure-nav'] li li a {
+  padding: 0.625rem 1rem 0.625rem 0.8125rem;
+  border-inline-start: 3px solid transparent;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  transition:
+    background-color var(--ui-speed) var(--ui-ease),
+    border-color var(--ui-speed) var(--ui-ease);
+}
+
+[data-ui='disclosure-nav'] li li a:hover {
+  border-inline-start-color: var(--ui-accent);
+  background: var(--ui-band);
+  color: var(--ui-text);
 }
 
 [data-ui='disclosure-nav'][data-ui-ready] li > ul {
   position: absolute;
-  top: calc(100% + 0.375rem);
+  top: calc(100% + 0.25rem);
   left: 0;
   z-index: 10;
-  min-width: 12rem;
-  padding: 0.375rem;
-  border: 2px solid var(--ui-line);
+  min-width: 13rem;
+  padding: 0.25rem 0;
+  border: 1px solid var(--ui-line-strong);
   border-radius: var(--ui-radius);
   background: var(--ui-surface);
   box-shadow: var(--ui-shadow);
@@ -335,13 +408,22 @@ html:has(dialog[data-ui='dialog']:modal) {
     border-bottom-color: Highlight;
   }
 
+  [data-accordion-heading] > button,
+  [data-ui='disclosure-nav'] li li a {
+    border-inline-start-color: Canvas;
+  }
+
+  [data-accordion-heading] > button[aria-expanded='true'] {
+    border-inline-start-color: Highlight;
+  }
+
   [data-ui='combobox'] [role='option'] {
-    border-color: Canvas;
+    border-inline-start-color: Canvas;
   }
 
   [data-ui='combobox'] [role='option'][aria-selected='true'] {
     forced-color-adjust: none;
-    border-color: Highlight;
+    border-inline-start-color: Highlight;
     background: Highlight;
     color: HighlightText;
   }

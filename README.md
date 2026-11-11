@@ -46,8 +46,9 @@ Details that are easy to miss:
 instances. Each component class is also exported for direct use.
 
 Every color, font, and corner radius is a `--ui-*` custom property in `styles/ui.css`. The
-default theme uses IBM Plex Sans and IBM Plex Mono when the page loads them and falls back to
-system fonts otherwise, so nothing has to be downloaded.
+default theme uses Montserrat when the page loads it and falls back to system fonts otherwise,
+so nothing has to be downloaded. Light and dark follow the system setting, and
+`data-ui-ground="dark"` on any element keeps the components inside it dark in both.
 
 ### Accordion
 

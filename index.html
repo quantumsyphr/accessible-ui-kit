@@ -8,13 +8,12 @@
       name="description"
       content="Five accessible interface components in plain JavaScript, tested with keyboard and axe-core checks in Chromium, Firefox, and WebKit."
     />
-    <meta name="theme-color" content="#e9e9e6" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#0a0a0b" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap"
     />
     <link rel="stylesheet" href="/styles/ui.css" />
     <link rel="stylesheet" href="/demo/demo.css" />
@@ -22,10 +21,9 @@
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <header class="wrap title-block">
-      <div class="title-row">
-        <h1 class="title-name">Accessible UI Kit</h1>
-        <nav class="title-nav" data-ui="disclosure-nav" aria-label="Main">
+    <header class="hero" data-ui-ground="dark">
+      <div class="wrap hero-nav">
+        <nav data-ui="disclosure-nav" aria-label="Main">
           <ul>
             <li>
               <button type="button" aria-controls="nav-components">Components</button>
@@ -51,233 +49,239 @@
           </ul>
         </nav>
       </div>
-      <dl class="title-meta">
-        <div>
-          <dt>Version</dt>
-          <dd class="mono">v0.1.0</dd>
-        </div>
-        <div>
-          <dt>License</dt>
-          <dd class="mono">MIT</dd>
-        </div>
-        <div>
-          <dt>Code</dt>
-          <dd class="mono">
-            <a href="https://github.com/quantumsyphr/accessible-ui-kit">quantumsyphr/accessible-ui-kit</a>
-          </dd>
-        </div>
-        <div>
-          <dt>Decision records</dt>
-          <dd class="mono">
-            <a href="https://github.com/quantumsyphr/accessible-ui-kit/tree/main/docs/decisions">docs/decisions</a>
-          </dd>
-        </div>
-      </dl>
-    </header>
-
-    <main id="main" class="wrap">
-      <div class="intro">
+      <div class="wrap hero-body">
+        <h1>Accessible UI Kit</h1>
         <p class="lede">
           Five interface components in plain JavaScript. Each one starts as ordinary HTML that works without
           scripts, then follows the WAI-ARIA Authoring Practices once the script runs. Every component has keyboard
           and axe-core tests, and the styles cover light and dark schemes, reduced motion, and Windows high contrast.
         </p>
-        <table class="spec facts">
-          <caption class="visually-hidden">The kit in numbers</caption>
-          <tbody>
-            <tr>
-              <th scope="row">Components</th>
-              <td class="num">5</td>
-              <td>Accordion, tabs, dialog, combobox, navigation</td>
-            </tr>
-            <tr>
-              <th scope="row">Runtime dependencies</th>
-              <td class="num">0</td>
-              <td>No framework, no build step</td>
-            </tr>
-            <tr>
-              <th scope="row">Engines tested</th>
-              <td class="num">3</td>
-              <td>Chromium, Firefox, WebKit</td>
-            </tr>
-            <tr>
-              <th scope="row">JavaScript</th>
-              <td class="num">2.7&nbsp;kB</td>
-              <td>All five components, gzipped</td>
-            </tr>
-          </tbody>
-        </table>
+      </div>
+    </header>
+
+    <main id="main">
+      <div class="band">
+        <ul class="wrap facts">
+          <li>
+            <span class="fact-value">5</span>
+            <span class="fact-name">Components</span>
+            <span class="fact-detail">Accordion, tabs, dialog, combobox, navigation</span>
+          </li>
+          <li>
+            <span class="fact-value">0</span>
+            <span class="fact-name">Runtime dependencies</span>
+            <span class="fact-detail">No framework, no build step</span>
+          </li>
+          <li>
+            <span class="fact-value">3</span>
+            <span class="fact-name">Engines tested</span>
+            <span class="fact-detail">Chromium, Firefox, WebKit</span>
+          </li>
+          <li>
+            <span class="fact-value">2.7&nbsp;kB</span>
+            <span class="fact-name">JavaScript</span>
+            <span class="fact-detail">All five components, gzipped</span>
+          </li>
+        </ul>
       </div>
 
       <section id="accordion" class="component" aria-labelledby="accordion-title">
-        <span class="component-number" aria-hidden="true">01</span>
-        <h2 id="accordion-title">Accordion</h2>
-        <p>
-          Headings become toggle buttons, so heading navigation still works. Collapsed answers still turn up in find
-          in page, and without JavaScript every answer simply shows.
-        </p>
-        <div class="example">
-          <div data-ui="accordion">
-            <h3 data-accordion-heading>How fast do orders ship?</h3>
-            <div data-accordion-panel>
-              <p>Orders placed before 2 p.m. Central ship the same business day.</p>
+        <div class="wrap">
+          <div class="component-about">
+            <h2 id="accordion-title">Accordion</h2>
+            <p>
+              Headings become toggle buttons, so heading navigation still works. Collapsed answers still turn up in
+              find in page, and without JavaScript every answer simply shows.
+            </p>
+            <p class="source">
+              Source
+              <a href="https://github.com/quantumsyphr/accessible-ui-kit/blob/main/src/accordion.js">src/accordion.js</a>
+            </p>
+          </div>
+          <div class="component-demo">
+            <div class="example">
+              <div data-ui="accordion">
+                <h3 data-accordion-heading>How fast do orders ship?</h3>
+                <div data-accordion-panel>
+                  <p>Orders placed before 2 p.m. Central ship the same business day.</p>
+                </div>
+                <h3 data-accordion-heading>Can I return something?</h3>
+                <div data-accordion-panel>
+                  <p>Return anything unused within 30 days for a full refund.</p>
+                </div>
+                <h3 data-accordion-heading>Is there a warranty?</h3>
+                <div data-accordion-panel>
+                  <p>Every bag carries a two-year warranty against defects.</p>
+                </div>
+              </div>
             </div>
-            <h3 data-accordion-heading>Can I return something?</h3>
-            <div data-accordion-panel>
-              <p>Return anything unused within 30 days for a full refund.</p>
-            </div>
-            <h3 data-accordion-heading>Is there a warranty?</h3>
-            <div data-accordion-panel>
-              <p>Every bag carries a two-year warranty against defects.</p>
-            </div>
+            <table class="spec keys">
+              <caption class="visually-hidden">Accordion keyboard support</caption>
+              <thead>
+                <tr><th scope="col">Key</th><th scope="col">Action</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row"><kbd>Enter</kbd> or <kbd>Space</kbd></th><td>Expand or collapse</td></tr>
+                <tr><th scope="row"><kbd>Down</kbd> and <kbd>Up</kbd></th><td>Move between headers</td></tr>
+                <tr><th scope="row"><kbd>Home</kbd> and <kbd>End</kbd></th><td>First and last header</td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
-        <table class="spec keys">
-          <caption class="visually-hidden">Accordion keyboard support</caption>
-          <thead>
-            <tr><th scope="col">Key</th><th scope="col">Action</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row"><kbd>Enter</kbd> or <kbd>Space</kbd></th><td>Expand or collapse</td></tr>
-            <tr><th scope="row"><kbd>Down</kbd> and <kbd>Up</kbd></th><td>Move between headers</td></tr>
-            <tr><th scope="row"><kbd>Home</kbd> and <kbd>End</kbd></th><td>First and last header</td></tr>
-          </tbody>
-        </table>
-        <p class="source">
-          Source <a href="https://github.com/quantumsyphr/accessible-ui-kit/blob/main/src/accordion.js">src/accordion.js</a>
-        </p>
       </section>
 
       <section id="tabs" class="component" aria-labelledby="tabs-title">
-        <span class="component-number" aria-hidden="true">02</span>
-        <h2 id="tabs-title">Tabs</h2>
-        <p>
-          Plain sections become a tab list, each tab named by its section's heading. Arrow keys switch tabs and only
-          the selected tab sits in the tab order. Without JavaScript the sections stack.
-        </p>
-        <div class="example">
-          <div data-ui="tabs" data-label="Product details">
-            <section data-tab-panel>
-              <h3>Overview</h3>
-              <p>A waxed canvas daypack built for the commute, with a padded sleeve for a 16 inch laptop.</p>
-            </section>
-            <section data-tab-panel>
-              <h3>Specs</h3>
-              <p>18 liters, 1.2 kilograms, water resistant zippers, and a lifetime repair program.</p>
-            </section>
-            <section data-tab-panel>
-              <h3>Care</h3>
-              <p>Spot clean with cold water. Re-wax once a year to keep it weatherproof.</p>
-            </section>
+        <div class="wrap">
+          <div class="component-about">
+            <h2 id="tabs-title">Tabs</h2>
+            <p>
+              Plain sections become a tab list, each tab named by its section's heading. Arrow keys switch tabs and
+              only the selected tab sits in the tab order. Without JavaScript the sections stack.
+            </p>
+            <p class="source">
+              Source <a href="https://github.com/quantumsyphr/accessible-ui-kit/blob/main/src/tabs.js">src/tabs.js</a>
+            </p>
+          </div>
+          <div class="component-demo">
+            <div class="example">
+              <div data-ui="tabs" data-label="Product details">
+                <section data-tab-panel>
+                  <h3>Overview</h3>
+                  <p>A waxed canvas daypack built for the commute, with a padded sleeve for a 16 inch laptop.</p>
+                </section>
+                <section data-tab-panel>
+                  <h3>Specs</h3>
+                  <p>18 liters, 1.2 kilograms, water resistant zippers, and a lifetime repair program.</p>
+                </section>
+                <section data-tab-panel>
+                  <h3>Care</h3>
+                  <p>Spot clean with cold water. Re-wax once a year to keep it weatherproof.</p>
+                </section>
+              </div>
+            </div>
+            <table class="spec keys">
+              <caption class="visually-hidden">Tabs keyboard support</caption>
+              <thead>
+                <tr><th scope="col">Key</th><th scope="col">Action</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row"><kbd>Left</kbd> and <kbd>Right</kbd></th><td>Previous and next tab</td></tr>
+                <tr><th scope="row"><kbd>Home</kbd> and <kbd>End</kbd></th><td>First and last tab</td></tr>
+                <tr><th scope="row"><kbd>Tab</kbd></th><td>Into the open panel</td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
-        <table class="spec keys">
-          <caption class="visually-hidden">Tabs keyboard support</caption>
-          <thead>
-            <tr><th scope="col">Key</th><th scope="col">Action</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row"><kbd>Left</kbd> and <kbd>Right</kbd></th><td>Previous and next tab</td></tr>
-            <tr><th scope="row"><kbd>Home</kbd> and <kbd>End</kbd></th><td>First and last tab</td></tr>
-            <tr><th scope="row"><kbd>Tab</kbd></th><td>Into the open panel</td></tr>
-          </tbody>
-        </table>
-        <p class="source">
-          Source <a href="https://github.com/quantumsyphr/accessible-ui-kit/blob/main/src/tabs.js">src/tabs.js</a>
-        </p>
       </section>
 
       <section id="dialog" class="component" aria-labelledby="dialog-title">
-        <span class="component-number" aria-hidden="true">03</span>
-        <h2 id="dialog-title">Dialog</h2>
-        <p>
-          The native dialog element does nearly all of the work: the button opens it with no script at all, the page
-          behind goes inert, and Escape or a click outside closes it. The script returns focus where Safari would lose
-          it and covers older browsers.
-        </p>
-        <div class="example">
-          <button type="button" class="button button-primary" commandfor="size-guide" command="show-modal">
-            Size guide
-          </button>
+        <div class="wrap">
+          <div class="component-about">
+            <h2 id="dialog-title">Dialog</h2>
+            <p>
+              The native dialog element does nearly all of the work: the button opens it with no script at all, the
+              page behind goes inert, and Escape or a click outside closes it. The script returns focus where Safari
+              would lose it and covers older browsers.
+            </p>
+            <p class="source">
+              Source <a href="https://github.com/quantumsyphr/accessible-ui-kit/blob/main/src/dialog.js">src/dialog.js</a>
+            </p>
+          </div>
+          <div class="component-demo">
+            <div class="example">
+              <button type="button" class="button button-primary" commandfor="size-guide" command="show-modal">
+                Size guide
+              </button>
+            </div>
+            <table class="spec keys">
+              <caption class="visually-hidden">Dialog keyboard support</caption>
+              <thead>
+                <tr><th scope="col">Key</th><th scope="col">Action</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row"><kbd>Escape</kbd></th><td>Close and return to the button</td></tr>
+                <tr><th scope="row"><kbd>Tab</kbd></th><td>Stays inside the dialog</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <table class="spec keys">
-          <caption class="visually-hidden">Dialog keyboard support</caption>
-          <thead>
-            <tr><th scope="col">Key</th><th scope="col">Action</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row"><kbd>Escape</kbd></th><td>Close and return to the button</td></tr>
-            <tr><th scope="row"><kbd>Tab</kbd></th><td>Stays inside the dialog</td></tr>
-          </tbody>
-        </table>
-        <p class="source">
-          Source <a href="https://github.com/quantumsyphr/accessible-ui-kit/blob/main/src/dialog.js">src/dialog.js</a>
-        </p>
       </section>
 
       <section id="combobox" class="component" aria-labelledby="combobox-title">
-        <span class="component-number" aria-hidden="true">04</span>
-        <h2 id="combobox-title">Combobox</h2>
-        <p>
-          Starts life as an input with a native datalist, so suggestions work without JavaScript. Once enhanced, focus
-          stays in the field while arrow keys move through matches, and a live region announces the result count.
-        </p>
-        <div class="example example-combobox">
-          <div data-ui="combobox">
-            <label for="store-city">Find a store near you</label>
-            <input id="store-city" name="city" list="store-cities" autocomplete="off" />
-            <datalist id="store-cities">
-              <option value="Arlington"></option>
-              <option value="Dallas"></option>
-              <option value="Denton"></option>
-              <option value="Fort Worth"></option>
-              <option value="Frisco"></option>
-              <option value="Garland"></option>
-              <option value="Grand Prairie"></option>
-              <option value="Irving"></option>
-              <option value="McKinney"></option>
-              <option value="Plano"></option>
-            </datalist>
+        <div class="wrap">
+          <div class="component-about">
+            <h2 id="combobox-title">Combobox</h2>
+            <p>
+              Starts life as an input with a native datalist, so suggestions work without JavaScript. Once enhanced,
+              focus stays in the field while arrow keys move through matches, and a live region announces the result
+              count.
+            </p>
+            <p class="source">
+              Source
+              <a href="https://github.com/quantumsyphr/accessible-ui-kit/blob/main/src/combobox.js">src/combobox.js</a>
+            </p>
+          </div>
+          <div class="component-demo">
+            <div class="example example-combobox">
+              <div data-ui="combobox">
+                <label for="store-city">Find a store near you</label>
+                <input id="store-city" name="city" list="store-cities" autocomplete="off" />
+                <datalist id="store-cities">
+                  <option value="Arlington"></option>
+                  <option value="Dallas"></option>
+                  <option value="Denton"></option>
+                  <option value="Fort Worth"></option>
+                  <option value="Frisco"></option>
+                  <option value="Garland"></option>
+                  <option value="Grand Prairie"></option>
+                  <option value="Irving"></option>
+                  <option value="McKinney"></option>
+                  <option value="Plano"></option>
+                </datalist>
+              </div>
+            </div>
+            <table class="spec keys">
+              <caption class="visually-hidden">Combobox keyboard support</caption>
+              <thead>
+                <tr><th scope="col">Key</th><th scope="col">Action</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row"><kbd>Down</kbd> and <kbd>Up</kbd></th><td>Move through matches</td></tr>
+                <tr><th scope="row"><kbd>Enter</kbd></th><td>Pick the highlighted match</td></tr>
+                <tr><th scope="row"><kbd>Escape</kbd></th><td>Close the list, then clear the field</td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
-        <table class="spec keys">
-          <caption class="visually-hidden">Combobox keyboard support</caption>
-          <thead>
-            <tr><th scope="col">Key</th><th scope="col">Action</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row"><kbd>Down</kbd> and <kbd>Up</kbd></th><td>Move through matches</td></tr>
-            <tr><th scope="row"><kbd>Enter</kbd></th><td>Pick the highlighted match</td></tr>
-            <tr><th scope="row"><kbd>Escape</kbd></th><td>Close the list, then clear the field</td></tr>
-          </tbody>
-        </table>
-        <p class="source">
-          Source <a href="https://github.com/quantumsyphr/accessible-ui-kit/blob/main/src/combobox.js">src/combobox.js</a>
-        </p>
       </section>
 
       <section id="navigation" class="component" aria-labelledby="navigation-title">
-        <span class="component-number" aria-hidden="true">05</span>
-        <h2 id="navigation-title">Navigation</h2>
-        <p>
-          The menu at the top of this page. It follows the disclosure navigation pattern instead of an ARIA menu, so
-          links stay links for screen reader users. Submenus close when focus or a click lands anywhere else.
-        </p>
-        <table class="spec keys">
-          <caption class="visually-hidden">Navigation keyboard support</caption>
-          <thead>
-            <tr><th scope="col">Key</th><th scope="col">Action</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row"><kbd>Enter</kbd> or <kbd>Space</kbd></th><td>Open or close a submenu</td></tr>
-            <tr><th scope="row"><kbd>Down</kbd> and <kbd>Up</kbd></th><td>Move through the open submenu</td></tr>
-            <tr><th scope="row"><kbd>Escape</kbd></th><td>Close and return to its button</td></tr>
-          </tbody>
-        </table>
-        <p class="source">
-          Source
-          <a href="https://github.com/quantumsyphr/accessible-ui-kit/blob/main/src/disclosure-nav.js">src/disclosure-nav.js</a>
-        </p>
+        <div class="wrap">
+          <div class="component-about">
+            <h2 id="navigation-title">Navigation</h2>
+            <p>
+              The menu at the top of this page. It follows the disclosure navigation pattern instead of an ARIA menu,
+              so links stay links for screen reader users. Submenus close when focus or a click lands anywhere else.
+            </p>
+            <p class="source">
+              Source
+              <a href="https://github.com/quantumsyphr/accessible-ui-kit/blob/main/src/disclosure-nav.js">src/disclosure-nav.js</a>
+            </p>
+          </div>
+          <div class="component-demo">
+            <table class="spec keys">
+              <caption class="visually-hidden">Navigation keyboard support</caption>
+              <thead>
+                <tr><th scope="col">Key</th><th scope="col">Action</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row"><kbd>Enter</kbd> or <kbd>Space</kbd></th><td>Open or close a submenu</td></tr>
+                <tr><th scope="row"><kbd>Down</kbd> and <kbd>Up</kbd></th><td>Move through the open submenu</td></tr>
+                <tr><th scope="row"><kbd>Escape</kbd></th><td>Close and return to its button</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </section>
     </main>
 
@@ -290,19 +294,21 @@
           <tr><th scope="col">Size</th><th scope="col">Chest (inches)</th></tr>
         </thead>
         <tbody>
-          <tr><th scope="row">Small</th><td class="mono">34 to 37</td></tr>
-          <tr><th scope="row">Medium</th><td class="mono">38 to 41</td></tr>
-          <tr><th scope="row">Large</th><td class="mono">42 to 45</td></tr>
+          <tr><th scope="row">Small</th><td>34 to 37</td></tr>
+          <tr><th scope="row">Medium</th><td>38 to 41</td></tr>
+          <tr><th scope="row">Large</th><td>42 to 45</td></tr>
         </tbody>
       </table>
       <button type="button" class="button" commandfor="size-guide" command="close">Close</button>
     </dialog>
 
-    <footer class="wrap site-footer">
-      <p>
-        Built by <a href="https://peter-ty-portfolio.netlify.app">Peter Tillman-Young</a>. MIT license. The store
-        content is fictional.
-      </p>
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>
+          Built by <a href="https://ptyportfolio.com">Peter Tillman-Young</a>. MIT license, v0.1.0. The store content
+          is fictional.
+        </p>
+      </div>
     </footer>
 
     <script type="module">
